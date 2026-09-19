@@ -4,7 +4,8 @@ import {
     createNote,
     getNotes,
     updateNote,
-    deleteNote
+    deleteNote,
+    togglePinNote
 } from "../controllers/noteController.js";
 
 import authMiddleware from "../middleware/authMiddleware.js";
@@ -12,11 +13,9 @@ import authMiddleware from "../middleware/authMiddleware.js";
 const router = express.Router();
 
 router.post("/", authMiddleware, createNote);
-
 router.get("/", authMiddleware, getNotes);
-
 router.put("/:id", authMiddleware, updateNote);
-
+router.patch("/:id/pin", authMiddleware, togglePinNote);
 router.delete("/:id", authMiddleware, deleteNote);
 
 export default router;

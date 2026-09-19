@@ -4,8 +4,8 @@ const noteSchema = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: true,
-            trim: true
+            trim: true,
+            default: ""
         },
 
         content: {
@@ -22,12 +22,37 @@ const noteSchema = new mongoose.Schema(
         isPinned: {
             type: Boolean,
             default: false
-        }
+        },
+
+        color: {
+            type: String,
+            default: "default"
+        },
+
+        tags: [
+            {
+                type: String,
+                trim: true
+            }
+        ],
+
+        aiSummary: {
+            type: String,
+            default: ""
+        },
+
+        aiActionItems: [
+            {
+                type: String
+            }
+        ]
     },
     {
         timestamps: true
     }
 );
+
+noteSchema.index({ userId: 1, isPinned: -1, updatedAt: -1 });
 
 const Note = mongoose.model("Note", noteSchema);
 
